@@ -1,0 +1,1 @@
+CREATE .env FILE and set database variables before running docker compose up
