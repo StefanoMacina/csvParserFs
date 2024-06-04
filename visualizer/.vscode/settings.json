@@ -1,0 +1,13 @@
+{
+  "prettier.htmlWhitespaceSensitivity": "ignore",
+  "prettier.bracketSameLine": true,
+  "prettier.printWidth": 1500,
+  "prettier.semi": false,
+  "prettier.bracketSpacing": true,
+  "cSpell.words": [
+    "Compl",
+    "occurences",
+    "pagerrlogs",
+    "pagpartlogs"
+  ]
+}

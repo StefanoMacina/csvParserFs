@@ -1,0 +1,55 @@
+version : '3.7'
+services:
+    mysqldb:
+        image: mysql:8.4.0
+        restart: always
+        ports:
+        - "3306:3306"
+        environment:
+        - MYSQL_DATABASE=visualizr
+        - MYSQL_ROOT_PASSWORD=changeinprod1
+        volumes:
+        - mysql-parser-data:/var/lib/mysql
+        networks:
+        - springboot-mysql-network
+
+
+    frontend:
+        build:
+          context: ./visualizer
+          dockerfile : Dockerfile
+        ports:
+        - "4200:4200"
+        depends_on:
+          backend:
+            condition: service_started
+            restart: true
+
+
+    backend:
+        build:
+           context: ./backend
+           dockerfile : Dockerfile
+        ports:	
+        - "8080:8080"
+        depends_on:
+          mysqldb:
+            condition: service_started
+            restart: true
+        volumes:
+          - C:\\Users\\macina\\Desktop\\csvfolder:/csvfolder
+        environment:
+        - SPRING_DATASOURCE_URL=jdbc:mysql://mysqldb:3306/visualizr?createDatabaseIfNotExist=true
+        - SPRING_DATASOURCE_USERNAME=root
+        - SPRING_DATASOURCE_PASSWORD=changeinprod1
+        networks:
+        - springboot-mysql-network
+   
+networks:
+   springboot-mysql-network:
+      name: springboot-mysql-network
+volumes:
+    mysql-parser-data:
+
+
+
